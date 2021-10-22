@@ -1,12 +1,23 @@
 <?php
 namespace app\admin\controller;
+use app\admin\business\Menu;
+use app\admin\business\Roles;
 use app\BaseController;
+use think\App;
 use think\facade\View;
 use think\facade\Db;
-class Index extends BaseController{
+class Index extends AdminBase {
     public function index(){
-        
-        $topMenu = DB::name("menu")->where(['pid'=>0,'status'=>1,'is_del'=>0])->select()->toArray();//获取一级栏目
+        $adminUser = session(config('admin.session_admin'));
+
+        $role = $adminUser['role'];
+        //获取权限列表
+        $admin_auth = (new Roles())->getAuthorityByRoleId($role);
+        $admin_auth = json_decode($admin_auth,true);
+        //获取菜单
+        $topMenu = (new Menu())->getTopMenusByAuthority($admin_auth);
+        view::assign("username",$adminUser['username']);
+        view::assign("menu",$topMenu);
         return View::fetch();
     }
 }

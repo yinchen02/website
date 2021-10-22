@@ -37,7 +37,7 @@ class AdminUser {
             throw new Exception("登录失败");
         }
         //记录session
-        session("session_admin",$adminUser);
+        session(config('admin.session_admin'),$adminUser);
         return true;
     }
 

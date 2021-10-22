@@ -3,9 +3,18 @@ namespace app\admin\controller;
 use app\admin\business\AdminUser;
 use app\BaseController;
 use app\common\lib\Show;
+use think\App;
 use think\facade\View;
 
-class Login extends BaseController{
+class Login extends AdminBase {
+
+    public function initialize()
+    {
+        //登录了则访问不了登录页
+       if ($this->isLogin()){
+            return $this->redirect(url('/admin/index'));
+       }
+    }
     public function index(){
         return View::fetch();
     }
