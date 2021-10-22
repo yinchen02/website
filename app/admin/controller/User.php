@@ -6,6 +6,7 @@ use think\facade\View;
 class User extends BaseController{
     public function index(){
 
+
         return View::fetch();
     }
 }

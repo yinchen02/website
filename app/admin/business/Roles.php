@@ -1,6 +1,8 @@
 <?php
 namespace app\admin\business;
-class Roles {
+use app\common\business\BusBase;
+
+class Roles extends BusBase {
 
     protected $model;
     public function __construct()
