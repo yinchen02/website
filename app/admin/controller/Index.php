@@ -16,7 +16,7 @@ class Index extends AdminBase {
         $admin_auth = json_decode($admin_auth,true);
         //获取菜单
         $topMenu = (new Menu())->getTopMenusByAuthority($admin_auth);
-        view::assign("username",$adminUser['username']);
+        view::assign("username",$adminUser['account']);
         view::assign("menu",$topMenu);
         return View::fetch();
     }

@@ -25,8 +25,8 @@ class Login extends AdminBase {
         $username = $this->request->param("username","","trim");
         $password = $this->request->param("password","","trim");
         $data = [
-            'username'=>$username,
-            'password'=>$password,
+            'account'=>$username,
+            'pass'=>$password,
         ];
         //tp6验证机制
         try {

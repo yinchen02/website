@@ -16,18 +16,19 @@ class AdminUser {
      * @throws Exception
      */
     public function login($data){
-        $adminUser = $this->getAdminUserByUsername($data['username']);
+        $adminUser = $this->getAdminUserByUsername($data['account']);
         if (empty($adminUser)){
             throw new Exception("不存在该用户");
         }
-        if ($adminUser['password'] != md5($data['password'])){
+        if ($adminUser['pass'] != md5($data['pass'])){
             throw new Exception("密码错误");
         }
 
         $updateData = [
-            'update_time'=>time(),
+            'last_login_time'=>date("Y-m-d H:i:s",time()),
             'last_login_ip'=>request()->ip(),
         ];
+       
         try {
             $res = $this->model->updateById($adminUser['id'],$updateData);
         }catch (\Exception $e){

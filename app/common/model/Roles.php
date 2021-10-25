@@ -1,8 +1,8 @@
 <?php
 namespace app\common\model;
-use think\Model;
 
-class Roles extends Model{
+
+class Roles extends BaseModel {
     /**
      * 根据角色id来获取权限列表
      * @param $roleId
@@ -15,7 +15,8 @@ class Roles extends Model{
         }
         $where = [
             'id'=>$roleId,
-            'status'=>config("status.mysql.table_normal")
+            'status'=>config("status.mysql.table_normal"),
+            'is_del'=>0
         ];
         $res = $this->where($where)->value('authority');
         return $res;

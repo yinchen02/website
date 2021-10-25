@@ -15,7 +15,7 @@ class AdminUser extends Model{
         if (empty($username)){
             return false;
         }
-        $where = ['username'=>$username];
+        $where = ['account'=>$username];
         return $this->where($where)->find();
     }
 

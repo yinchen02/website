@@ -142,15 +142,16 @@
                 //执行实例
                 var uploadInst = upload.render({
                     elem: '#upload' //绑定元素
-                    ,url: '/admin/Common/qiniu' //上传接口
+                    ,url: '/admin/image/upload' //上传接口
                     ,accept:'images'
                     ,done: function(res){
                         layer.msg("上传成功", {
                                     icon: 1,
                                     time:1000
                         });
-                      $("#upload").attr("src",res.src);
-                      $("#avtar").val(res.src);
+
+                      $("#upload").attr("src",res.result.src);
+                      $("#avtar").val(res.result.src);
                     }
                     ,error: function(){
                       layer.alert('上传失败',{
