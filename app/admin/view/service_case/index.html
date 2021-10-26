@@ -56,9 +56,9 @@
     <body>
         <div class="x-nav">
           <span class="layui-breadcrumb">
-            <a href="">用户管理</a>
+            <a href="">分类管理</a>
             <a>
-              <cite>房源管理</cite></a>
+              <cite>服务案例管理</cite></a>
           </span>
           <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="./" title="刷新">
             <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
@@ -68,20 +68,18 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body ">
-                          <form class="layui-form layui-col-space5">
-
+<!--                          <form class="layui-form layui-col-space5">
                                 <div class="layui-input-inline" style="width: 100px;">
                                     <select name="type" lay-verify="" >
                                       <option value="">类型</option>
 
-                                    <!--  <option value="9"  {if condition="isset($params['type'])"}{if condition="$params['type'] == 9"}
+                                    &lt;!&ndash;  <option value="9"  {if condition="isset($params['type'])"}{if condition="$params['type'] == 9"}
                                               selected 
                                               {/if}{/if}>写字楼</option>
                                       <option value="10"  {if condition="isset($params['type'])"}{if condition="$params['type'] == 10"}
                                               selected 
-                                              {/if}{/if}>合院</option>-->
+                                              {/if}{/if}>合院</option>&ndash;&gt;
                                     </select>
-                                     
                                 </div>
                               <div class="layui-input-inline">
                                   <select name="status" lay-verify="" >
@@ -100,17 +98,15 @@
                                       </option>
                                   </select>
                               </div>
-                                
-                                
                                 <div class="layui-inline layui-show-xs-block">
                                     <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
                                     <div class="layui-btn" type="reset"  id="reset">重置</div>
                                 </div>
-                            </form>
+                            </form>-->
                             
                         </div>
                         <div class="layui-card-header">
-                            <button class="layui-btn" onclick="xadmin.open('新增','/admin/house/add_page',600,400,true)"><i class="layui-icon"></i>新增</button>
+                            <button class="layui-btn" onclick="xadmin.open('新增','/admin/serviceCase/add_page',600,400,true)"><i class="layui-icon"></i>新增</button>
 
                             <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>删除</button>
 
@@ -124,55 +120,45 @@
                                       <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary">
                                     </th>
                                       <th>ID</th>
-                                      
-                                      <th>房源号</th>
-                                      <th>所属楼盘</th>
-                                      <th>隶属项目经理</th>
-                                      <th>建筑面积</th>
-                                      <th>保护期</th>
-                                      <th>竞拍状态</th>
+                                      <th>类型</th>
+                                      <th>标题</th>
+                                      <th>简要描述</th>
+                                    <!--  <th>内容</th>-->
+                                      <th>创建时间</th>
                                       <th>状态</th>
-                                      <th>类型与户型</th>
+
                                       <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {volist name="data" id="v"}
+                                {volist name="result.data" id="v"}
                                   <tr>
                                     <td>
-                                      <input type="checkbox" name="id" value=""   lay-skin="primary">
+                                      <input type="checkbox" name="id" value="{$v['id']}"   lay-skin="primary">
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="td-status">
-                                      {if condition="1 eq 1"}
-                                        <input type="checkbox" name="xxx" lay-skin="switch" checked lay-filter="auction" value="1" data_id="" class="switch">
-                                      {else/}
-                                        <input type="checkbox" name="xxx" lay-skin="switch" lay-filter="auction"  value="0" data_id="" class="switch" >
-                                      {/if}
-                                   </td>
-                                   <td class="td-status">
-                                      {if condition="1 eq 1"}
-                                        <span class="layui-btn layui-btn-normal layui-btn-mini" onclick="member_stop(1)" title="启用">已启用
+                                      <td>{$v.id}</td>
+                                    <td>{$v.type}</td>
+                                    <td>{$v['title']}</td>
+                                    <td>{$v['summary']}</td>
+                                   <!-- <td>{$v['content']}</td>-->
+                                    <td>{$v['create_time']}</td>
+
+
+                                      <td class="td-status">
+                                          {if condition="$v['status'] eq 1"}
+                                          <span class="layui-btn layui-btn-normal layui-btn-mini" onclick="member_stop({$v['id']})" title="启用">已启用
                                         </span>
-                                      {else/}
-                                        <span class="layui-btn layui-btn-danger layui-btn-mini" onclick="member_start(1)" title="停用">已停用
+                                          {else/}
+                                          <span class="layui-btn layui-btn-danger layui-btn-mini" onclick="member_start({$v['id']})" title="停用">已停用
                                         </span>
 
-                                      {/if}
-                                    </td>
-
+                                          {/if}
+                                      </td>
                                     <td class="td-manage">
-                                      
-                                      <a title="编辑"  onclick="xadmin.open('编辑','/admin/house/edit_page/id/1',600,400,true)" href="javascript:;">
+                                      <a title="编辑"  onclick="xadmin.open('编辑','/admin/serviceCase/edit_page/id/{$v.id}',600,400,true)" href="javascript:;">
                                         编辑
                                       </a>
-                                      
-                                      <a title="删除" onclick="member_del(this,'1')" href="javascript:;">删除
+                                      <a title="删除" onclick="member_del(this,{$v.id})" href="javascript:;">删除
                                       </a>
                                     </td>
                                   </tr>
@@ -182,10 +168,9 @@
                         </div>
                         <div class="layui-card-body ">
                             <div class="page">
-
                                 <div>
-                                  <div class="count">共条结果</div>
-
+                                  <div class="count">共{$result.total}条结果</div>
+                                    {$result.render|raw}
                                   <div class="count" style="height: 36px;">
                                     <div>跳至第</div><input type="number" name="title"  placeholder=""  class="layui-input" id="blur" ><div style="width:20px;">页</div>  </div>
                                 </div>
@@ -279,7 +264,7 @@
       function member_stop(id){
           layer.confirm('确认要停用吗？',function(index){
               $.ajax({
-                  url : "/admin/house/status",
+                  url : "/admin/serviceCase/status",
                   type : "json",
                   method : "post",
                   data:{
@@ -298,7 +283,7 @@
       function member_start(id){
           layer.confirm('确认要启用吗？',function(index){
               $.ajax({
-                  url : "/admin/house/status",
+                  url : "/admin/serviceCase/status",
                   type : "json",
                   method : "post",
                   data:{
@@ -320,11 +305,12 @@
           layer.confirm('确认要删除吗？',function(index){
               //发异步删除数据
               $.ajax({
-                url : "/admin/house/delete",
+                url : "/admin/serviceCase/status",
                 type : "json",
                 method : "post",
                 data:{
-                  id : id
+                  id : id,
+                  status:99
                 },
                 success:function(){
                    $(obj).parents("tr").remove();
@@ -358,7 +344,7 @@
         layer.confirm('确定删除这些吗？' ,function(index){
             //捉到所有被选中的，发异步进行删除
             $.ajax({
-                url : "/admin/house/delete_all",
+                url : "/admin/serviceCase/delete_all",
                 type : "json",
                 method : "post",
                 data:{

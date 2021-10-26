@@ -23,7 +23,6 @@
             <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
         <style type="text/css">
-            
             .layui-form-item .layui-input-inline img {
                 margin: 5px;
             }
@@ -104,141 +103,54 @@
         </style>
     </head>
     <body>
-        <div class="layui-fluid">
+        <div class="layui-fluid" style="margin-left: 200px">
             <div class="layui-row">
                 <form class="layui-form" lay-filter="form">
                     <div class="layui-form-item">
                         <label for="L_username" class="layui-form-label">
-                            <span class="x-red">*</span>所属楼盘</label>
+                            <span class="x-red">*</span>所属类型</label>
                         <div class="layui-input-inline">
-                            <select name="properties_id" lay-verify="required" lay-filter="propertie" id="propertie">
+                            <select name="type" lay-verify="required" lay-filter="propertie" id="type">
                               <option value="">请选择</option>
-                              {volist name="propertie" id="v"}
-                                <option value="{$v['id']}">{$v['name']}</option>
-                              {/volist}
+                                <option value="case">客户案例</option>
+                                <option value="service">项目服务</option>
                             </select>
                         </div>
                             <div class="layui-form-mid layui-word-aux">
                             <span class="x-red"></span></div>
                     </div>
-                    
-                    
-                   <div class="layui-form-item">
-                        <label for="L_username" class="layui-form-label">
-                            <span class="x-red">*</span>房源名称</label>
-                        <div class="layui-input-inline">
-                            <div class="layui-input-inline" style="width: px;">
-                            <input type="text"  name="dong" required="" lay-verify="required" autocomplete="off" class="layui-input" style="width: 26%;float: left;" placeholder="栋">
-                            <div style="width: 10%;float: left;height: 30px;text-align: center;line-height: 30px;">-</div>
-                            <input type="text"  name="unit" required="" lay-verify="required" autocomplete="off" class="layui-input" style="width: 26%;float: left;"
-                            placeholder="单元">
-                            <div style="width: 10%;float: left;height: 30px;text-align: center;line-height: 30px;">-</div>
-                            <input type="text"  name="code" required="" lay-verify="required" autocomplete="off" class="layui-input" style="width: 26%;float: left;"placeholder="房号">
-                        </div>
-                        </div>
-                            <div class="layui-form-mid layui-word-aux">
-                            <span class="x-red"></span></div>
-                    </div>
                     <div class="layui-form-item">
-                        <label for="L_email" class="layui-form-label">
-                            <span class="x-red">*</span>房源合作商</label>
+                        <label for="L_username" class="layui-form-label">
+                            <span class="x-red">*</span>标题</label>
                         <div class="layui-input-inline">
-                            <input type="radio"  name="has_partner" title="有" checked id="yes" lay-filter="yes" value="1">
-                            <input type="radio"  name="has_partner" title="无" id="no" lay-filter="no" value="0">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">
-                            <span class="x-red"></span></div>
-                    </div>
-                    <div class="layui-form-item" style="" id="partner">
-                        <label for="L_email" class="layui-form-label">
-                            <span class="x-red"></span></label>
-                        <div class="layui-input-inline">
-                            <select name="partner_id" lay-verify="" style=";">
-                              <option value="">请选择</option>
-                              {volist name="partner" id="v"}
-                                <option value="{$v['id']}">{$v['name']}</option>
-                              {/volist}
-                            </select>
-
-                        </div>
+                            <input type="text" id="title"  name="title" required="" style="width: 300px" lay-verify="account|required" autocomplete="off" class="layui-input"></div>
                         <div class="layui-form-mid layui-word-aux">
                             <span class="x-red"></span></div>
                     </div>
                     <div class="layui-form-item">
                         <label for="L_username" class="layui-form-label">
-                            <span class="x-red">*</span>类型与户型</label>
-                        <div class="layui-input-inline" style="width: 9.5%;">
-                            <select name="type" lay-verify="required" lay-filter="type" id="type">
-                             <option value="">请先选择楼盘</option>
-                              
-                            </select>
-                        </div>
-                        <div class="layui-input-inline" style="width: 9.5%;" id="son">
-                        <select name="house_type" lay-verify="required" id="house_type">
-                              <option value="">请先选择类型</option>
-                        </select>
-                        </div>
-
-                        <div class="layui-form-mid layui-word-aux">
-                        <span class="x-red"></span></div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label for="L_username" class="layui-form-label">
-                            <span class="x-red">*</span>佣金(%)</label>
-                        <div class="layui-input-inline" style="margin: 0;">
-                            <input type="text"  name="commission" required="" lay-verify="number" autocomplete="off" class="layui-input" id="commission" >
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">
-                        <span class="x-red"></span></div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label for="L_username" class="layui-form-label">
-                            <span class="x-red">*</span>均价(元)</label>
-                        <div class="layui-input-inline" style="margin: 0;">
-                            <input type="text"  name="average" required="" lay-verify="number" autocomplete="off" class="layui-input" id="average" >
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">
-                        <span class="x-red"></span></div>
-                    </div>
-                    
-                    <div class="layui-form-item">
-                        <label for="L_username" class="layui-form-label">
-                            <span class="x-red">*</span>建面(m2)</label>
-                        <div class="layui-input-inline" style="margin: 0;">
-                            <input type="text"  name="size" required="" lay-verify="number" autocomplete="off" class="layui-input" id="size" >
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">
-                        <span class="x-red"></span></div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label for="L_username" class="layui-form-label">
-                            <span class="x-red">*</span>总价(元)</label>
-                        <div class="layui-input-inline" style="margin: 0;">
-                            <input type="text"  name="total" required="" lay-verify="number" autocomplete="off" class="layui-input" id="total" >
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">
-                        <span class="x-red"></span></div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label for="L_username" class="layui-form-label">
-                            <span class="x-red">*</span>保护期(天)</label>
-
-                        <div class="layui-input-inline" style="margin: 0;">
-                            <input type="text"  name="protect_days" required="" lay-verify="required|number" autocomplete="off" class="layui-input" id="position" >
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">
-                        <span class="x-red"></span></div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label for="L_email" class="layui-form-label">
-                            <span class="x-red">*</span>竞拍房源</label>
+                            <span class="x-red">*</span>简要描述</label>
                         <div class="layui-input-inline">
-                            <input type="radio" name="is_auction" value="1" title="开启" >
-                            <input type="radio" name="is_auction" value="0" title="关闭" checked>
+                            <textarea type="text"  id="summary" name="summary" required="" style="width: 300px;height: 200px" lay-verify="account|required" autocomplete="off" class="layui-input"></textarea>
                         </div>
                         <div class="layui-form-mid layui-word-aux">
-                            <span class="x-red">*</span></div>
+                            <span class="x-red"></span></div>
                     </div>
+                    <div class="layui-fluid">
+                        <div class="layui-row">
+                            <div class="layui-form">
+                                <div class="layui-form-item">
+                                    <label for="L_email" class="layui-form-label">
+                                        <span class="x-red"></span>内容</label>
+                                    <div class="layui-input-inline" style="width:600px">
+                            <textarea name="content" id="content"></textarea>
+                                    </div>
+                                    <div class="layui-form-mid layui-word-aux" >
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="layui-form-item">
                         <label for="L_email" class="layui-form-label">
                             <span class="x-red">*</span>是否启用</label>
@@ -264,121 +176,15 @@
                 layer = layui.layer;
                 upload = layui.upload;
                 laydate = layui.laydate;
-                
-                //多选选中
-                
-                //执行实例
-                var uploadInst = upload.render({
-                    elem: '#upload' //绑定元素
-                    ,url: '/admin/Common/qiniu' //上传接口
-                    ,accept:'images'
-                    ,done: function(res){
-                        layer.msg("上传成功", {
-                                    icon: 1,
-                                    time:1000
-                        });
-                      $("#upload").attr("src",res.src);
-                      $("#avtar").val(res.src);
-                    }
-                    ,error: function(){
-                      layer.alert('上传失败',{
-                        icon:7
-                     });
-                    }
-                });
-                var uploadInst2 = upload.render({
-                    elem: '#video' //绑定元素
-                    ,url: '/admin/Common/qiniu' //上传接口
-                    ,accept:'video'
-                    ,done: function(res){
-                        layer.msg("上传成功", {
-                                    icon: 1,
-                                    time:1000
-                        });
-                        $("#video_url").val(res.src);
-                        
-                    }
-                    ,error: function(){
-                      layer.alert('上传失败',{
-                        icon:7
-                     });
-                    }
-                });
-                // $("#yes").click(function(){
-                //     $("#son").css("display","block");
-                // })
-                // $("#no").click(function(){
-                //     $("#son").css("display","none");
-                // })
-                form.on('select(type)', function(data){
-                    $.ajax({
-                        url:'/admin/common/gethousetype',
-                        type:'json',
-                        method:'post',
-                        data:{
-                            type:data.value,
-                            propertie:$("#propertie").val(),
-                        },
-                        success:function(data){
-                           $("#house_type").html(data);
-                           form.render();
-                        },
-                        error:function(){
-
-                        }
-                    })
-                });
-                form.on('select(propertie)',function(data){
-                    $.ajax({
-                        url:'/admin/common/gettype',
-                        type:'json',
-                        method:'post',
-                        data:{
-                            propertie:data.value
-                        },
-                        success:function(data){
-                           $("#type").html(data);
-                           form.render();
-                        },
-                        error:function(){
-
-                        }
-                    })
-                })
-                
-                $(".position").click(function(){
-                    $("#position").val("1000,1000");
-                    $("#lon").val("1000");
-                    $("#lat").val("1000");
-                })
-                //自定义验证规则
-                form.verify({
-                    size:function(value){
-                        if($("#size_s").val() >= $("#size_l").val()){
-                            return '请输入正确的面积范围';
-                        }
-                    }
-                    
-                });
-                form.on('radio(yes)', function(data){
-                    $("#partner").css("display","block");
-                });
-                form.on('radio(no)', function(data){
-                    $("#partner").css("display","none");
-                });
-                laydate.render({
-                  elem: '#open_time',
-                  type:'date'//指定元素
-                });
                 var layedit = layui.layedit;
                 layedit.set({
-                  uploadImage: {
-                    url: '/admin/Common/qiniu' //接口url
-                    ,type: 'post' //默认post
-                  }
+                    uploadImage: {
+                        url: '/admin/image/layUpload' //接口url
+                        ,type: 'post' //默认post
+                    }
                 });
 
-                var index= layedit.build('advantage',{
+                var index= layedit.build('content',{
                     tool: [
                       'strong' //加粗
                       ,'italic' //斜体
@@ -397,18 +203,20 @@
                 });
                 //监听提交
                 form.on('submit(add)',function(data) {
-                    
                     data = form.val("form");
                     $.ajax({
-                        url : '/admin/house/add',
+                        url : '/admin/serviceCase/add',
                         type : 'json',
                         method : 'post',
                         data :{
-                            data:data,
+                            type:data.type,
+                            title:data.title,
+                            summary:data.summary,
+                            status:data.status,
+                            content:layedit.getContent(index),
                         },
                         success:function(data){
-                            
-                            if(data.code == 0){
+                            if(data.status == 1){
                                 layer.alert("新增成功", {
                                     icon: 6
                                 },
@@ -438,29 +246,12 @@
                 $("#add").click(function(){
                     $("#tags").append(
                         '<li class="tags"><div class="input-box"><input type="text" name=""  ><i class="layui-icon">&#xe642;</i></div><i class="layui-icon close" >&#x1007;</i></li>'
-
                     );
                 })
-
-                
-
             });
-            $("#average").bind("input propertychange",function(){
-                if($(this).val()!=""&&$("#size").val()!=""){
-                    $("#total").val($(this).val() * $("#size").val() )
-                }
-            })
-            $("#size").bind("input propertychange",function(){
-                if($(this).val()!=""&&$("#average").val()!=""){
-                    $("#total").val($(this).val() * $("#average").val() )
-                }
-            })
 
-
-
-            
         </script>
-        
+
     </body>
 
 </html>

@@ -66,4 +66,9 @@ class BaseModel extends Model{
     public function getLists($num=10,$order=['id'=>'desc']){
         return $this->order($order)->where(['is_del'=>0])->paginate($num);
     }
+    public function getNormalList($num,$order){
+        return $this->order($order)->where('status','<>',99)->paginate($num);
+    }
+
+
 }
