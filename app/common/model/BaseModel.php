@@ -70,5 +70,8 @@ class BaseModel extends Model{
         return $this->order($order)->where('status','<>',99)->paginate($num);
     }
 
+    public function getList(){
 
+        return $this->where(['status'=>1])->select();
+    }
 }

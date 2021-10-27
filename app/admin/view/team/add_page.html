@@ -108,12 +108,13 @@
         <form class="layui-form" lay-filter="form">
             <div class="layui-form-item">
                 <label for="L_username" class="layui-form-label">
-                    <span class="x-red">*</span>所属类型</label>
-                <div class="layui-input-inline">
-                    <select name="type" lay-verify="required" lay-filter="propertie" id="type">
-
-                        <option value="case" {if condition="$data.type eq '客户案例'"} selected {/if}>客户案例</option>
-                        <option value="service" {if condition="$data.type eq '项目服务'"} selected {/if}>项目服务</option>
+                    <span class="x-red">*</span>所属栏目</label>
+                <div class="layui-input-inline" >
+                    <select name="position_id" lay-verify="required" id="position_id">
+                        <option value="0">请选择</option>
+                       {foreach $position as $v}
+                        <option  value="{$v.id}">{$v.type}</option>
+                        {/foreach}
                     </select>
                 </div>
                 <div class="layui-form-mid layui-word-aux">
@@ -121,17 +122,27 @@
             </div>
             <div class="layui-form-item">
                 <label for="L_username" class="layui-form-label">
-                    <span class="x-red">*</span>标题</label>
+                    <span class="x-red">*</span>姓名</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="title" value="{$data.title}"  name="title" required="" style="width: 300px" lay-verify="account|required" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="username" name="username" required="" style="width: 300px;" lay-verify="account|required" autocomplete="off" class="layui-input"/>
+                </div>
                 <div class="layui-form-mid layui-word-aux">
                     <span class="x-red"></span></div>
             </div>
             <div class="layui-form-item">
                 <label for="L_username" class="layui-form-label">
-                    <span class="x-red">*</span>简要描述</label>
+                    <span class="x-red">*</span>管理咨询经验</label>
                 <div class="layui-input-inline">
-                    <textarea type="text" id="summary" name="summary" required="" style="width: 300px;height: 200px" lay-verify="account|required" autocomplete="off" class="layui-input">{$data.summary}</textarea>
+                    <input type="text" id="experience" name="experience" required="" style="width: 300px;" lay-verify="account|required" autocomplete="off" class="layui-input"/>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red"></span></div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                    <span class="x-red">*</span>各类项目</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="cases" name="cases" required="" style="width: 300px;" lay-verify="account|required" autocomplete="off" class="layui-input"/>
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     <span class="x-red"></span></div>
@@ -140,42 +151,63 @@
                 <label for="L_username" class="layui-form-label" style="line-height: 60px;">
                     <span class="x-red">*</span>头像</label>
                 <div class="layui-input-inline">
-                    <img src="{$data.image}"  style="height: 70px;width: 70px;" id="upload">
-                    <input type="hidden"  name="image" value="{$data.image}" required="" lay-verify="required" autocomplete="off" class="layui-input" id="image">
+                    <img src="/static/manager/images/camera-bg.png" style="height: 70px;width: 70px;" id="upload">
+                    <input type="hidden"  name="image" required="" lay-verify="required" autocomplete="off" class="layui-input" id="image">
                 </div>
                 <div class="layui-form-mid layui-word-aux" style="line-height: 60px;">
                     <span class="x-red">*</span>选择图片</div>
-
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                    <span class="x-red">*</span>个人介绍</label>
+                <div class="layui-input-inline">
+                    <textarea type="text" id="introduce" name="introduce" required="" style="width: 300px;height: 200px" lay-verify="account|required" autocomplete="off" class="layui-input"></textarea>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red"></span></div>
             </div>
             <div class="layui-fluid">
                 <div class="layui-row">
                     <div class="layui-form">
                         <div class="layui-form-item">
                             <label for="L_email" class="layui-form-label">
-                                <span class="x-red"></span>内容</label>
+                                <span class="x-red"></span>教育背景</label>
                             <div class="layui-input-inline" style="width:600px">
-                                <textarea name="content" id="content">{$data.content}</textarea>
+                                <textarea name="eduction" id="eduction"></textarea>
                             </div>
                             <div class="layui-form-mid layui-word-aux" >
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <div class="layui-fluid">
+                    <div class="layui-row">
+                        <div class="layui-form">
+                            <div class="layui-form-item">
+                                <label for="L_email" class="layui-form-label">
+                                    <span class="x-red"></span>项目经历</label>
+                                <div class="layui-input-inline" style="width:600px">
+                                    <textarea name="project" id="project"></textarea>
+                                </div>
+                                <div class="layui-form-mid layui-word-aux" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <div class="layui-form-item">
                     <label for="L_email" class="layui-form-label">
                         <span class="x-red">*</span>是否启用</label>
                     <div class="layui-input-inline">
-                        <input type="radio" name="status" value="1" title="启用" {if condition="$data.status eq 1"} checked {/if}>
-                        <input type="radio" name="status" value="0" title="禁用" {if condition="$data.status eq 0"} checked {/if}>
+                        <input type="radio" name="status" value="1" title="启用"checked >
+                        <input type="radio" name="status" value="0" title="禁用">
                     </div>
                     <div class="layui-form-mid layui-word-aux">
                         <span class="x-red">*</span></div>
                 </div>
-                <input type="hidden" name="id" value="{$data['id']}">
+
                 <div class="layui-form-item">
                     <label for="L_repass" class="layui-form-label"></label>
-                    <button class="layui-btn" lay-filter="add" lay-submit="">修改 </button></div>
+                    <button class="layui-btn" lay-filter="add" lay-submit="">添加 </button></div>
         </form>
     </div>
 </div>
@@ -194,6 +226,7 @@
                     ,type: 'post' //默认post
                 }
             });
+            //执行实例
             var uploadInst = upload.render({
                 elem: '#upload' //绑定元素
                 ,url: '/admin/image/upload' //上传接口
@@ -213,7 +246,25 @@
                     });
                 }
             });
-            var index= layedit.build('content',{
+
+            var index= layedit.build('eduction',{
+                tool: [
+                    'strong' //加粗
+                    ,'italic' //斜体
+                    ,'underline' //下划线
+                    ,'del' //删除线
+                    ,'|' //分割线
+                    ,'left' //左对齐
+                    ,'center' //居中对齐
+                    ,'right' //右对齐
+                    ,'link' //超链接
+                    ,'unlink' //清除链接
+                    ,'face' //表情
+                    ,'image' //插入图片
+
+                ]
+            });
+            var index1= layedit.build('project',{
                 tool: [
                     'strong' //加粗
                     ,'italic' //斜体
@@ -234,21 +285,32 @@
             form.on('submit(add)',function(data) {
                 data = form.val("form");
                 $.ajax({
-                    url : '/admin/serviceCase/edit',
+                    url : '/admin/team/add',
                     type : 'json',
                     method : 'post',
                     data :{
-                        id:data.id,
-                        type:data.type,
-                        title:data.title,
-                        summary:data.summary,
-                        image:data.image,
-                        status:data.status,
-                        content:layedit.getContent(index),
+                       data:data,
+                        eduction:layedit.getContent(index),
+                        project:layedit.getContent(index1),
                     },
+                /*
+                *  data :{
+                        id:data.id,
+                        cate:data.cate,
+                        username:data.username,
+                        experience:experience,
+                        cases:cases,
+                        image:data.image,
+                        introduce:introduce,
+
+                        status:data.status,
+                        eduction:layedit.getContent(index),
+                        project:layedit.getContent(index1),
+                    },
+                * */
                     success:function(data){
                         if(data.status == 1){
-                            layer.alert("修改成功", {
+                            layer.alert("添加成功", {
                                     icon: 6
                                 },
                                 function() {
@@ -258,19 +320,17 @@
                                     xadmin.father_reload();
                                 });
                         }else{
-                            layer.alert(data.msg,{
+                            layer.alert(data.message,{
                                 icon:7
                             });
                         }
                         return false;
-
                     },
                     error :function(){
-                        layer.alert("修改失败", {
+                        layer.alert("添加失败", {
                             icon: 7
                         })
                     }
-
                 })
                 return false;
             });
@@ -280,7 +340,6 @@
                 );
             })
         });
-
 </script>
 
 </body>

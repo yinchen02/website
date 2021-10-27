@@ -68,10 +68,45 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body ">
+<!--                          <form class="layui-form layui-col-space5">
+                                <div class="layui-input-inline" style="width: 100px;">
+                                    <select name="type" lay-verify="" >
+                                      <option value="">类型</option>
+
+                                    &lt;!&ndash;  <option value="9"  {if condition="isset($params['type'])"}{if condition="$params['type'] == 9"}
+                                              selected 
+                                              {/if}{/if}>写字楼</option>
+                                      <option value="10"  {if condition="isset($params['type'])"}{if condition="$params['type'] == 10"}
+                                              selected 
+                                              {/if}{/if}>合院</option>&ndash;&gt;
+                                    </select>
+                                </div>
+                              <div class="layui-input-inline">
+                                  <select name="status" lay-verify="" >
+                                      <option value="">状态</option>
+                                      <option value="1" {if condition="isset($params['status'])"}
+                                              {if condition="$params['status'] eq 1"}
+                                              selected
+                                              {/if}
+                                      {/if}>已启用
+                                      </option>
+                                      <option value="0" {if condition="isset($params['status'])"}
+                                              {if condition="$params['status'] === '0'"}
+                                              selected
+                                              {/if}
+                                      {/if}>已停用
+                                      </option>
+                                  </select>
+                              </div>
+                                <div class="layui-inline layui-show-xs-block">
+                                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                                    <div class="layui-btn" type="reset"  id="reset">重置</div>
+                                </div>
+                            </form>-->
                             
                         </div>
                         <div class="layui-card-header">
-                            <button class="layui-btn" onclick="xadmin.open('新增','/admin/serviceCase/add_page',600,400,true)"><i class="layui-icon"></i>新增</button>
+                            <button class="layui-btn" onclick="xadmin.open('新增','/admin/consultation/add_page',600,400,true)"><i class="layui-icon"></i>新增</button>
 
                             <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>删除</button>
 
@@ -87,11 +122,10 @@
                                       <th>ID</th>
                                       <th>类型</th>
                                       <th>标题</th>
-                                      <th>简要描述</th>
-                                    <th>图片</th>
+                                        <th>图片</th>
                                       <th>创建时间</th>
                                       <th>状态</th>
-
+                                      <th>是否展示</th>
                                       <th>操作</th>
                                     </tr>
                                 </thead>
@@ -104,8 +138,8 @@
                                       <td>{$v.id}</td>
                                     <td>{$v.type}</td>
                                     <td>{$v['title']}</td>
-                                    <td>{$v['summary']}</td>
-                                   <td><img src="{$v['image']}" /></td>
+
+                                  <td><img src="{$v['image']}"/></td>
                                     <td>{$v['create_time']}</td>
                                       <td class="td-status">
                                           {if condition="$v['status'] eq 1"}
@@ -116,8 +150,15 @@
                                         </span>
                                           {/if}
                                       </td>
+                                      <td class="td-status">
+                                          {if condition="$v['is_show'] eq 1"}
+                                          <input type="checkbox" name="xxx" lay-skin="switch" checked lay-filter="auction" value="1" data_id="{$v['id']}" class="switch">
+                                          {else/}
+                                          <input type="checkbox" name="xxx" lay-skin="switch" lay-filter="auction"  value="0" data_id="{$v['id']}" class="switch" >
+                                          {/if}
+                                      </td>
                                     <td class="td-manage">
-                                      <a title="编辑"  onclick="xadmin.open('编辑','/admin/serviceCase/edit_page/id/{$v.id}',600,400,true)" href="javascript:;">
+                                      <a title="编辑"  onclick="xadmin.open('编辑','/admin/consultation/edit_page/id/{$v.id}',600,400,true)" href="javascript:;">
                                         编辑
                                       </a>
                                       <a title="删除" onclick="member_del(this,{$v.id})" href="javascript:;">删除
@@ -187,12 +228,12 @@
             status = 1;
           }
           $.ajax({
-                  url : "/admin/house/auction",
+                  url : "/admin/consultation/isShow",
                   type : "json",
                   method : "post",
                   data:{
                     id : id,
-                    is_auction:status,
+                    status:status,
                   },
                   success:function(){
                     layer.msg('操作成功!',{icon: 1,time:1000});
@@ -226,7 +267,7 @@
       function member_stop(id){
           layer.confirm('确认要停用吗？',function(index){
               $.ajax({
-                  url : "/admin/serviceCase/status",
+                  url : "/admin/consultation/status",
                   type : "json",
                   method : "post",
                   data:{
@@ -245,7 +286,7 @@
       function member_start(id){
           layer.confirm('确认要启用吗？',function(index){
               $.ajax({
-                  url : "/admin/serviceCase/status",
+                  url : "/admin/consultation/status",
                   type : "json",
                   method : "post",
                   data:{
@@ -267,7 +308,7 @@
           layer.confirm('确认要删除吗？',function(index){
               //发异步删除数据
               $.ajax({
-                url : "/admin/serviceCase/status",
+                url : "/admin/consultation/status",
                 type : "json",
                 method : "post",
                 data:{
@@ -306,7 +347,7 @@
         layer.confirm('确定删除这些吗？' ,function(index){
             //捉到所有被选中的，发异步进行删除
             $.ajax({
-                url : "/admin/serviceCase/delete_all",
+                url : "/admin/consultation/delete_all",
                 type : "json",
                 method : "post",
                 data:{

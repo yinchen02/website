@@ -32,6 +32,7 @@ class ServiceCase extends BaseController{
         $summary = $this->request->param("summary","","trim");
         $content = $this->request->param("content","","trim");
         $status = $this->request->param("status","1","intval");
+        $image = $this->request->param("image","","trim");
         $data = [
             'type'=>$type,
             'title'=>$title,
@@ -43,7 +44,7 @@ class ServiceCase extends BaseController{
         if (!$validate->check($data)){
             return Show::error($validate->getError());
         }
-
+        $data['image'] = $image;
         $result = (new ServiceCaseBis())->addData($data);
         if ($result){
             return Show::success("OK");
@@ -60,6 +61,7 @@ class ServiceCase extends BaseController{
         $summary = $this->request->param("summary","","trim");
         $content = $this->request->param("content","","trim");
         $status = $this->request->param("status","1","intval");
+        $image = $this->request->param("image","","trim");
         if (empty($id)){
             return Show::error("请选择要修改的数据");
         }
@@ -68,8 +70,13 @@ class ServiceCase extends BaseController{
             'title'=>$title,
             'summary'=>$summary,
             'content'=>$content,
-            'status'=>$status
+            'status'=>$status,
         ];
+        $validate = new \app\admin\validate\ServiceCase();
+        if (!$validate->check($data)){
+            return Show::error($validate->getError());
+        }
+        $data['image'] = $image;
         $result = (new ServiceCaseBis())->updateById($id,$data);
         if ($result){
             return Show::success("OK");

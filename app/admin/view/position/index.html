@@ -22,10 +22,7 @@
           .page{
             height: 50px;
           }
-          td a{
-            color: blue;
-            text-align: center;
-          }
+
           .pagination{
             display: block;
             float: left;
@@ -47,6 +44,10 @@
             height: 36px;
             width: 40px;
           }
+          td a{
+            color: blue;
+            text-align: center;
+          }
           input::-webkit-outer-spin-button,
           input::-webkit-inner-spin-button { -webkit-appearance: none; }
           input[type="number"]{ -moz-appearance: textfield; }
@@ -56,9 +57,9 @@
     <body>
         <div class="x-nav">
           <span class="layui-breadcrumb">
-            <a href="">分类管理</a>
+            <a href="">行业咨询</a>
             <a>
-              <cite>服务案例管理</cite></a>
+              <cite>行业管理</cite></a>
           </span>
           <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="./" title="刷新">
             <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
@@ -67,14 +68,11 @@
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md12">
                     <div class="layui-card">
-                        <div class="layui-card-body ">
-                            
-                        </div>
+
                         <div class="layui-card-header">
-                            <button class="layui-btn" onclick="xadmin.open('新增','/admin/serviceCase/add_page',600,400,true)"><i class="layui-icon"></i>新增</button>
+                            <button class="layui-btn" onclick="xadmin.open('新增','/admin/position/add_page',600,400,true)"><i class="layui-icon"></i>新增</button>
 
                             <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>删除</button>
-
 
                         </div>
                         <div class="layui-card-body layui-table-body layui-table-main">
@@ -84,68 +82,54 @@
                                     <th>
                                       <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary">
                                     </th>
-                                      <th>ID</th>
-                                      <th>类型</th>
-                                      <th>标题</th>
-                                      <th>简要描述</th>
-                                    <th>图片</th>
-                                      <th>创建时间</th>
-                                      <th>状态</th>
-
-                                      <th>操作</th>
+                                    <th>ID</th>
+                                    <th>类型</th>
+                                    <th>创建时间</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {volist name="result.data" id="v"}
+                                {volist name="data" id="v"}
                                   <tr>
                                     <td>
                                       <input type="checkbox" name="id" value="{$v['id']}"   lay-skin="primary">
                                     </td>
-                                      <td>{$v.id}</td>
-                                    <td>{$v.type}</td>
-                                    <td>{$v['title']}</td>
-                                    <td>{$v['summary']}</td>
-                                   <td><img src="{$v['image']}" /></td>
-                                    <td>{$v['create_time']}</td>
-                                      <td class="td-status">
-                                          {if condition="$v['status'] eq 1"}
-                                          <span class="layui-btn layui-btn-normal layui-btn-mini" onclick="member_stop({$v['id']})" title="启用">已启用
+                                    <td>{$v.id}</td>
+                                      <td>{$v.type}</td>
+                                    <td>{$v.update_time|(date='Y-m-d H:i:s',###)}</td>
+
+                                    <td class="td-status">
+                                      {if condition="$v['status'] eq 1"}
+                                        <span class="layui-btn layui-btn-normal layui-btn-mini" onclick="member_stop({$v['id']})" title="启用">已启用
                                         </span>
-                                          {else/}
-                                          <span class="layui-btn layui-btn-danger layui-btn-mini" onclick="member_start({$v['id']})" title="停用">已停用
+                                      {else/}
+                                        <span class="layui-btn layui-btn-danger layui-btn-mini" onclick="member_start({$v['id']})" title="停用">已停用
                                         </span>
-                                          {/if}
-                                      </td>
+                                      {/if}
+                                    </td>
                                     <td class="td-manage">
-                                      <a title="编辑"  onclick="xadmin.open('编辑','/admin/serviceCase/edit_page/id/{$v.id}',600,400,true)" href="javascript:;">
+                                      <a title="编辑"  onclick="xadmin.open('编辑','/admin/position/edit_page/id/{$v['id']}',600,400,true)" href="javascript:;">
                                         编辑
                                       </a>
-                                      <a title="删除" onclick="member_del(this,{$v.id})" href="javascript:;">删除
+
+                                      <a title="删除" onclick="member_del(this,'{$v['id']}')" href="javascript:;">删除
                                       </a>
                                     </td>
                                   </tr>
-                                {/volist} 
+                                {/volist}
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="layui-card-body ">
-                            <div class="page">
-                                <div>
-                                  <div class="count">共{$result.total}条结果</div>
-                                    {$result.render|raw}
-                                  <div class="count" style="height: 36px;">
-                                    <div>跳至第</div><input type="number" name="title"  placeholder=""  class="layui-input" id="blur" ><div style="width:20px;">页</div>  </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </body>
     <script>
         layui.use(['laydate','form','jquery'], function(){
         var laydate = layui.laydate;
+
         var  form = layui.form;
         var  $=layui.jquery;
         $("#blur").blur(function(){
@@ -155,11 +139,6 @@
           }else{
             window.location.href ="./?page="+page;
           }
-        })
-        $("#reset").click(function(){
-          $("input").each(function(){
-            $(this).val("");
-          })
         })
         $("#blur").keypress(function(){
           if(window.event.keyCode==13){
@@ -175,33 +154,10 @@
            $('.layui-input').each(function () {
               $(this).val("").removeAttr("checked").removeAttr("selected");
             });
-           $(":selected").removeAttr("selected");
+           $(":selected").removeAttr("selected");           $(":selected").removeAttr("selected");
+
         })
-        form.on('switch(auction)', function(data){
-          var elem = data.elem
-          var id = $(elem).attr("data_id");
-          var status = data.value
-          if(status == 1){
-            status = 0;
-          }else{
-            status = 1;
-          }
-          $.ajax({
-                  url : "/admin/house/auction",
-                  type : "json",
-                  method : "post",
-                  data:{
-                    id : id,
-                    is_auction:status,
-                  },
-                  success:function(){
-                    layer.msg('操作成功!',{icon: 1,time:1000});
-                   
-                    
-                  },
-                    
-           })
-        });
+
         // 监听全选
         form.on('checkbox(checkall)', function(data){
 
@@ -211,8 +167,8 @@
             $('tbody input').prop('checked',false);
           }
           form.render('checkbox');
-        }); 
-        
+        });
+
         //执行一个laydate实例
         laydate.render({
           elem: '#create_time',
@@ -226,7 +182,7 @@
       function member_stop(id){
           layer.confirm('确认要停用吗？',function(index){
               $.ajax({
-                  url : "/admin/serviceCase/status",
+                  url : "/admin/position/status",
                   type : "json",
                   method : "post",
                   data:{
@@ -236,16 +192,16 @@
                   success:function(){
                     layer.msg('已停用!',{icon: 5,time:1000});
                     window.location.reload();
-                    
+
                   },
-                    
+
               })
           });
       }
       function member_start(id){
           layer.confirm('确认要启用吗？',function(index){
               $.ajax({
-                  url : "/admin/serviceCase/status",
+                  url : "/admin/position/status",
                   type : "json",
                   method : "post",
                   data:{
@@ -255,9 +211,9 @@
                   success:function(){
                     layer.msg('已启用!',{icon: 1,time:1000});
                     window.location.reload();
-                    
+
                   },
-                    
+
               })
           });
       }
@@ -267,22 +223,23 @@
           layer.confirm('确认要删除吗？',function(index){
               //发异步删除数据
               $.ajax({
-                url : "/admin/serviceCase/status",
+                url : "/admin/position/status",
                 type : "json",
                 method : "post",
                 data:{
                   id : id,
-                  status:99
+                  status:99,
                 },
                 success:function(){
                    $(obj).parents("tr").remove();
                    layer.msg('已删除!',{icon:1,time:1000});
+                   window.location.reload();
                 },
                 error:function(){
 
                 }
               })
-              
+
           });
       }
 
@@ -291,44 +248,7 @@
       function delAll () {
         var ids = [];
 
-        // 获取选中的id 
-        $('tbody input').each(function(index, el) {
-            if($(this).prop('checked')&& !$(this).hasClass("switch")){
-               ids.push($(this).val())
-            }
-        });
-        console.log(ids);
-        if(ids.length == 0){
-          layer.msg('请先选择数据',{icon:7,time:1000});
-          return;
-        }
-        
-        layer.confirm('确定删除这些吗？' ,function(index){
-            //捉到所有被选中的，发异步进行删除
-            $.ajax({
-                url : "/admin/serviceCase/delete_all",
-                type : "json",
-                method : "post",
-                data:{
-                  id : ids
-                },
-                success:function(){
-                   $(obj).parents("tr").remove();
-                   layer.msg('已删除!',{icon:1,time:1000});
-                },
-                error:function(){
-
-                }
-              })
-
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-      }
-      function auction_all (status) {
-        var ids = [];
-
-        // 获取选中的id 
+        // 获取选中的id
         $('tbody input').each(function(index, el) {
             if($(this).prop('checked')){
                ids.push($(this).val())
@@ -338,19 +258,18 @@
           layer.msg('请先选择数据',{icon:7,time:1000});
           return;
         }
-        
-        layer.confirm('确定吗？',function(index){
+
+        layer.confirm('确定删除吗？' ,function(index){
             //捉到所有被选中的，发异步进行删除
             $.ajax({
-                url : "/admin/house/auction_all",
+                url : "/admin/position/delete_all",
                 type : "json",
                 method : "post",
                 data:{
-                  id : ids,
-                  status:status,
+                  id : ids
                 },
                 success:function(){
-                   layer.msg('操作成功!',{icon:1,time:1000});
+                   layer.msg('删除成功!',{icon:1,time:1000});
                    window.location.reload();
                 },
                 error:function(){
@@ -358,9 +277,8 @@
                 }
               })
 
-            
+
         });
       }
-      
     </script>
 </html>

@@ -136,6 +136,16 @@
                         <div class="layui-form-mid layui-word-aux">
                             <span class="x-red"></span></div>
                     </div>
+                    <div class="layui-form-item">
+                        <label for="L_username" class="layui-form-label" style="line-height: 60px;">
+                            <span class="x-red">*</span>头像</label>
+                        <div class="layui-input-inline">
+                            <img src="/static/manager/images/camera-bg.png" style="height: 70px;width: 70px;" id="upload">
+                            <input type="hidden"  name="image" required="" lay-verify="required" autocomplete="off" class="layui-input" id="image">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux" style="line-height: 60px;">
+                            <span class="x-red">*</span>选择图片</div>
+                    </div>
                     <div class="layui-fluid">
                         <div class="layui-row">
                             <div class="layui-form">
@@ -183,7 +193,25 @@
                         ,type: 'post' //默认post
                     }
                 });
+                var uploadInst = upload.render({
+                    elem: '#upload' //绑定元素
+                    ,url: '/admin/image/upload' //上传接口
+                    ,accept:'images'
+                    ,done: function(res){
 
+                        layer.msg("上传成功", {
+                            icon: 1,
+                            time:1000
+                        });
+                        $("#upload").attr("src",res.result.src);
+                        $("#image").val(res.result.src);
+                    }
+                    ,error: function(){
+                        layer.alert('上传失败',{
+                            icon:7
+                        });
+                    }
+                });
                 var index= layedit.build('content',{
                     tool: [
                       'strong' //加粗
@@ -212,6 +240,7 @@
                             type:data.type,
                             title:data.title,
                             summary:data.summary,
+                            image:data.image,
                             status:data.status,
                             content:layedit.getContent(index),
                         },
